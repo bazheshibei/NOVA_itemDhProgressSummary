@@ -1,0 +1,394 @@
+
+<!-- 表格模块 -->
+
+<template>
+  <div class="tableBox">
+
+    <el-table v-for="item in tableNum" :key="'table_' + item" v-if="item === tableNum"
+      class="comTable" v-loading="isLoading" element-loading-text="请求数据中"
+      :data="tableData" :height="tableHeight" size="mini" border :show-summary="true" :summary-method="_summaryMethod"
+      :row-style="_rowStyle" :cell-style="_cellStyle" :header-cell-style="_headerStyle" :span-method="_objectSpanMethod"
+    >
+      <!-- 项目 -->
+      <el-table-column prop="custom_name" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              项目<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 品牌 -->
+      <el-table-column prop="custom_name" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              品牌<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 系列 -->
+      <el-table-column prop="custom_name" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              系列<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 季节 -->
+      <el-table-column prop="custom_name" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              季节<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 成衣品类 -->
+      <el-table-column prop="custom_name" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              成衣品类<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 业务组 -->
+      <el-table-column prop="custom_name" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              业务组<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 订单类型 -->
+      <el-table-column prop="custom_name" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              订单类型<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 开发项目 -->
+      <el-table-column prop="custom_name" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              开发项目<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 报客人服装工厂 -->
+      <el-table-column prop="custom_name" width="150" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              报客人服装工厂<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 实际工厂 -->
+      <el-table-column prop="dress_type_name" width="70" fixed>
+        <template slot="header" slot-scope="scope">
+          <div class="thText">实际工厂</div>
+        </template>
+      </el-table-column>
+      <!-- 面料工厂 -->
+      <el-table-column prop="dress_type_name" width="70" fixed>
+        <template slot="header" slot-scope="scope">
+          <div class="thText">面料工厂</div>
+        </template>
+      </el-table-column>
+      <!-- 面料品类 -->
+      <el-table-column prop="dress_type_name" width="70" fixed>
+        <template slot="header" slot-scope="scope">
+          <div class="thText">面料品类</div>
+        </template>
+      </el-table-column>
+      <!-- 下单时间 -->
+      <el-table-column prop="custom_name" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              下单时间<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 订单数量 -->
+      <el-table-column prop="custom_name" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              订单数量<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 客人交期 -->
+      <el-table-column prop="custom_name" fixed>
+        <template slot="header" slot-scope="scope">
+          <el-popover placement="top" width="250" trigger="click">
+            <el-input :ref="'input_1'" clearable v-model="searchObj['asd']" size="mini" placeholder="多个查询空格分隔" @clear="clear('asd')" @change="change('asd', $event)"></el-input>
+            <div class="thText" slot="reference" @click="tableHeaderClick(1)">
+              客人交期<span>&nbsp;<i class="el-icon-search" :class="searchObj['asd'] ? 'thActive' : ''"></i></span>
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <!-- 工厂交期 -->
+      <el-table-column prop="dress_type_name" width="70" fixed>
+        <template slot="header" slot-scope="scope">
+          <div class="thText">工厂交期</div>
+        </template>
+      </el-table-column>
+
+      <div v-for="(item, index) in searchData" :key="'item_' + index">
+        <el-table-column v-for="(val, key) in item" :key="'val_' + key + '_' + val.code" min-width="100"
+          :column-key="index + '^' + val.columnKey + '^' + val.code_p + '^' + val.code"
+        >
+          <template slot="header" slot-scope="scope">
+            <el-popover placement="top" width="250" trigger="click">
+              <el-input :ref="'input_' + index + '_' + key" clearable v-model="searchObj[val.code]" size="mini" placeholder="多个查询空格分隔" @clear="clear(val.code)" @change="change(val.code, $event, val.code_p)"></el-input>
+              <div class="thText" slot="reference" :title="val.describecontent" @click="tableHeaderClick(index, key)">
+                {{val.label}}<span>&nbsp;<i class="el-icon-search" :class="searchObj[val.code] ? 'thActive' : ''"></i></span>
+                <!-- <p>{{val.code}}</p> -->
+              </div>
+            </el-popover>
+          </template>
+          <template slot-scope="scope">
+            <div class="ComTableCell">
+              <!-- <p>{{val.code}}</p>
+              <p>**********</p> -->
+              <!-- <span v-if="scope.row[val.code] || scope.row[val.code] === 0">{{scope.row[val.code]}}</span> -->
+              <span v-if="scope.row[val.code] || scope.row[val.code] === 0" v-html="scope.row[val.code]"></span>
+            </div>
+          </template>
+        </el-table-column>
+      </div>
+
+    </el-table>
+
+  </div>
+</template>
+
+<script>
+import { mapState, mapGetters } from 'vuex'
+export default {
+  props: ['tableHeight'],
+  data() {
+    return {
+      searchObj: {} // 表头搜索
+    }
+  },
+  computed: {
+    ...mapState(['countData', 'isLoading', 'colorArr', 'selectArr', 'searchData', 'tableNum', 'asdObj']),
+    ...mapGetters(['tableData'])
+  },
+  methods: {
+    /**
+     * [点击表头，input自动聚焦]
+     * @param {[Int]} index 索引：大类
+     * @param {[Int]} key   索引：小类
+     */
+    tableHeaderClick(index, key = '') {
+      const that = this
+      setTimeout(function () {
+        const ref = that.$refs[`input_${index}${key ? '_' + key : ''}`]
+        if (ref.length && ref.length === 1) {
+          that.$refs[`input_${index}_${key ? '_' + key : ''}`][0].focus()
+        } else if (ref.length && ref.length === 2) {
+          that.$refs[`input_${index}_${key ? '_' + key : ''}`][1].focus()
+        }
+      }, 100)
+    },
+    /**
+     * [表头：清空输入框]
+     * @param {[String]} name 字段名
+     */
+    clear(name) {
+      this.searchObj[name] = ''
+    },
+    /**
+     * [表头：改变值]
+     * @param {[String]} key   属性名
+     * @param {[String]} value 属性值
+     * @param {[String]} index 大类code
+     */
+    change(key, value, index = '') {
+      const obj = { [key]: value.trim() }
+      /** 添加数据 **/
+      this.$store.commit('assignData2', { name: 'searchHeader', obj, index })
+      /** 请求：数据 **/
+      this.$store.dispatch('A_getData', { isLoading: true })
+    },
+    /**
+     * [合计内容]
+     */
+    _summaryMethod({ columns, data }) {
+      const { countData } = this
+      const arr = []
+      columns.forEach(function (item, index) {
+        if (index === 0) {
+          arr.push('合计')
+        } else if (item.columnKey && item.columnKey.length > 6) {
+          const [, , word, value] = item.columnKey.split('^')
+          if (countData[word]) {
+            arr.push(countData[word][value])
+          } else {
+            arr.push('')
+          }
+        } else {
+          arr.push('')
+        }
+      })
+      return arr
+    },
+    /**
+     * [合并：表格单元格]
+     */
+    _objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+      const { asdObj } = this
+      const { columnKey: columnStr = '' } = column
+      const [, columnKey = '', code_p = '', code = ''] = columnStr.split('^') || []
+      /* ----- 固定列 || 大货相关 || 开发相关 || 设计相关 || 客户订单相关 ----- */
+      if (columnIndex < 5 || columnKey === '1') {
+        if (row.arrLength) {
+          return { rowspan: row.arrLength, colspan: 1 }
+        } else {
+          return { rowspan: 0, colspan: 0 }
+        }
+      }
+      /* ----- 物料分析相关 ----- */
+      if (code_p === 'material_info') {
+        if (row.asd_mi || (!row.asd_mi && typeof row.asd_mi === 'number')) {
+          return { rowspan: row.asd_mi, colspan: 1 }
+        } else if (row.arrLength && !row.asd_mi) {
+          return { rowspan: 1, colspan: 1 }
+        } else {
+          return { rowspan: 0, colspan: 0 }
+        }
+      }
+      /* ----- 采购跟进相关 ----- */
+      if (code_p === 'purchaseorder_info') {
+        if (row.asd_puro || (!row.asd_puro && typeof row.asd_index_p === 'number')) {
+          if (asdObj[[code]]) {
+            return { rowspan: row.asd_puro, colspan: 1 }
+          } else {
+            return { rowspan: 1, colspan: 1 }
+          }
+        } else if (row.arrLength && !row.asd_puro) {
+          return { rowspan: 1, colspan: 1 }
+        } else {
+          return { rowspan: 0, colspan: 0 }
+        }
+      }
+    },
+    /**
+     * [改变样式：隔行变色]
+     */
+    _rowStyle({ row, rowIndex }) {
+      if (row.index % 2 === 1) {
+        return { background: 'oldlace' }
+      }
+    },
+    /**
+     * [改变样式：单元格]
+     * @param {[Object]} row         数据：行
+     * @param {[Object]} column      数据：列
+     * @param {[Int]}    rowIndex    索引：行
+     * @param {[Int]}    columnIndex 索引：列
+     */
+    _cellStyle({ row, column, rowIndex, columnIndex }) {
+      // return { display: 'flex', alignItems: 'flex-start' }
+      // return { background: this.colorObj[column.columnKey] }
+    },
+    /**
+     * [改变样式：表头]
+     * @param {[Object]} row         数据：所有列
+     * @param {[Object]} column      数据：此列
+     * @param {[Int]}    rowIndex    索引：行
+     * @param {[Int]}    columnIndex 索引：列
+     */
+    _headerStyle({ row, column, rowIndex, columnIndex }) {
+      if (column.columnKey) {
+        return { backgroundImage: `linear-gradient(rgba(255, 255, 255, .3) 0%, ${this.colorArr[parseInt(column.columnKey) % 9]} 80%)` }
+      }
+    }
+    //
+  }
+}
+</script>
+
+<style scoped>
+.tableBox {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.comTable {
+  border: 0;
+}
+.thActive {
+  color: #E6A23C;
+  font-weight: bold;
+}
+.thText {
+  text-align: center;
+  line-height: 14px;
+}
+</style>
+
+<style>
+.comTable::before, .comTable::after {
+  height: 0 !important;
+}
+.el-table__fixed::before, .el-table__fixed::after {
+  height: 0 !important;
+}
+.comTable > .el-table__footer-wrapper { /* 滚动部分：合计行定位到底部 */
+  position: absolute !important;
+  bottom: 0 !important;
+}
+.el-table td, .el-table th { /* 单元格内文字顶部对齐 */
+  vertical-align: top !important;
+}
+.el-table thead {
+  color: #303133 !important;
+}
+
+/* 最后一行 padding，防止合计行遮挡[固定部分、滚动部分] */
+.tableBox > div > .el-table__fixed > .el-table__fixed-body-wrapper > table > tbody > tr:last-child > td, .tableBox > div > .el-table__body-wrapper > table > tbody > tr:last-child > td {
+  padding-bottom: 32px !important;
+}
+/* 合计防换行[固定部分、滚动部分] */
+.tableBox > div > .el-table__fixed > .el-table__fixed-footer-wrapper > table > tbody > tr > td > .cell, .tableBox > div > .el-table__footer-wrapper > table > tbody > tr > td > .cell {
+  height: 23px !important;
+  line-height: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+</style>
